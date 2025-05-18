@@ -4,13 +4,14 @@ using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
 [RequireComponent(typeof(XRGrabInteractable))]
+[RequireComponent(typeof(Rigidbody))]
 public class PrintHeadController : MonoBehaviour
 {
     private XRGrabInteractable grabInteractable;
     private Rigidbody rb;
     private Vector3 startPosition;
     private Quaternion startRotation;
-    Vector3 startHandPosition;
+    private Vector3 startHandPosition;
     
     [SerializeField] private float minX, maxX, minZ, maxZ; // constraints
     [SerializeField] private float movementDamping = 0.8f; // resistance
@@ -37,7 +38,6 @@ public class PrintHeadController : MonoBehaviour
     {
         startRotation = transform.rotation;
         startPosition = printerTransform.InverseTransformPoint(transform.position);
-        Debug.Log(startPosition);
         startHandPosition = args.interactorObject.GetAttachTransform(grabInteractable).position;
     }
 
@@ -52,11 +52,9 @@ public class PrintHeadController : MonoBehaviour
             // get hand movement delta
             Vector3 handPosition = interactor.GetAttachTransform(grabInteractable).position;
             Vector3 worldDelta = handPosition - startHandPosition;
-            Debug.Log(worldDelta);
 
             // convert global movement to printer space
             Vector3 localDelta = printerTransform.InverseTransformDirection(worldDelta);
-            Debug.Log(localDelta);
 
             // block y movement and adding resistance
             localDelta.y = 0f;
@@ -66,15 +64,12 @@ public class PrintHeadController : MonoBehaviour
             Vector3 newLocalPosition = startPosition + localDelta;
             newLocalPosition.x = Mathf.Clamp(newLocalPosition.x, minX, maxX);
             newLocalPosition.z = Mathf.Clamp(newLocalPosition.z, minZ, maxZ);
-            Debug.Log(newLocalPosition);
 
             // convert back to world space
             Vector3 newWorldPosition = printerTransform.TransformPoint(newLocalPosition);
-            Debug.Log(newWorldPosition);
 
             // apply the position and rotation
-            transform.position = newWorldPosition;
-            transform.rotation = startRotation;
+            transform.SetPositionAndRotation(newWorldPosition, startRotation);
         }
     }
 }
