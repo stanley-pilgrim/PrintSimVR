@@ -7,7 +7,7 @@ public class KinematicsManager : MonoBehaviour
     [SerializeField]
     private Transform printHead;
     [SerializeField]
-    private BowdenAssembly bowdenAssembly;
+    private BowdenTubeController bowdenTube;
 
     private Vector3 printHeadPos;
 
@@ -25,6 +25,6 @@ public class KinematicsManager : MonoBehaviour
         printHeadPos = printHead.position;
 
         // updating the bowden tube
-        bowdenAssembly.UpdateBowdenAssembly(printHeadDelta);
+        bowdenTube.UpdateBowdenTube(printHeadDelta);
     }
 }
