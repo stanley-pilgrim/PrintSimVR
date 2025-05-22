@@ -10,11 +10,26 @@ public class BowdenTubeController : TubeController
     [SerializeField] private PrintHeadCableController cable;
     [SerializeField] private float tangentLength = 0.2f;
 
+<<<<<<< Updated upstream
     private float bowdenLength;
 
     private void Start()
     {
         bowdenLength = spline.GetLength();
+=======
+    private float tangentLength = 0.14f;
+
+    private float xBias = 0.25f;
+    private float zBias = 0.8f;
+
+    private void Start()
+    {
+        UpdateMiddleKnot();
+        extrude.Rebuild();
+
+        filament.UpdateFilament(spline[0], spline[1]);
+        cable.UpdatePrintHeadCable(spline[0], spline[1]);
+>>>>>>> Stashed changes
     }
 
     public void UpdateBowdenTube(Vector3 printHeadDelta)
@@ -28,25 +43,13 @@ public class BowdenTubeController : TubeController
         spline[0] = printHeadKnot;
 
         // updating the middle knot
-        BezierKnot middleKnot = spline[1];
-
-        // updating the tangent
-        Vector3 middleKnotTangent = CalculateMiddleKnotTangent();
-        middleKnot.TangentIn = middleKnotTangent;
-        middleKnot.TangentOut = - middleKnotTangent;
-        spline[1] = middleKnot;
-
-        // finding the right height
-        middleKnot = spline[1];
-        Vector3 middleKnotPos = CalculateMiddleKnot();
-        middleKnot.Position = middleKnotPos;
-        spline[1] = middleKnot;
-
-        // updating the filament and the cable
-        filament.UpdateFilament(printHeadKnot, middleKnot);
-        cable.UpdatePrintHeadCable(printHeadKnot, middleKnot);
+        UpdateMiddleKnot();
 
         extrude.Rebuild();
+
+        // updating the filament and the cable
+        filament.UpdateFilament(spline[0], spline[1]);
+        cable.UpdatePrintHeadCable(spline[0], spline[1]);
     }
 
     private Vector3 CalculatePrintHeadKnot(Vector3 delta)
@@ -62,6 +65,22 @@ public class BowdenTubeController : TubeController
         return newPosition;
     }
 
+    private void UpdateMiddleKnot()
+    {
+        BezierKnot middleKnot = spline[1];
+
+        // updating the tangent
+        Vector3 middleKnotTangent = CalculateMiddleKnotTangent();
+        middleKnot.TangentIn = middleKnotTangent;
+        middleKnot.TangentOut = -middleKnotTangent;
+
+        // finding the position
+        Vector3 middleKnotPos = CalculateMiddleKnot();
+        middleKnot.Position = middleKnotPos;
+
+        spline[1] = middleKnot;
+    }
+
     private Vector3 CalculateMiddleKnotTangent()
     {
         // finding the difference between the first and the last knot
@@ -75,12 +94,10 @@ public class BowdenTubeController : TubeController
 
     private Vector3 CalculateMiddleKnot()
     {
-        const float epsilon = 0.01f;
-        const int maxIterations = 20;
-
         Vector3 knot0 = spline[0].Position;
         Vector3 knot2 = spline[2].Position;
 
+<<<<<<< Updated upstream
         // calculating position by x and z
         float midX = (knot0.x + knot2.x) / 2;
         float midZ = (knot0.z + knot2.z) / 2;
@@ -114,4 +131,21 @@ public class BowdenTubeController : TubeController
 
         return testPos;
     }
+=======
+        // calculating horizontal distance between knots
+        float xDelta = knot0.x - knot2.x;
+        float zDelta = knot0.z - knot2.z;
+        float knotsDistance = Mathf.Sqrt(xDelta * xDelta + zDelta * zDelta);
+
+        // middle knot is closer to the printhead by x and to the feeder by z
+        float midX = (1 - xBias) * knot0.x + xBias * knot2.x;
+        float midZ = (1 - zBias) * knot0.z + zBias * knot2.z;
+
+        // linear formula
+        float midY = -0.3081f * knotsDistance + 0.2562f;
+        
+        return new Vector3(midX, midY, midZ);
+    }
+
+>>>>>>> Stashed changes
 }

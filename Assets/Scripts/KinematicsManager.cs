@@ -10,7 +10,7 @@ public class KinematicsManager : MonoBehaviour
     private BowdenTubeController bowdenTube;
 
     [SerializeField] 
-    private float movementThreshold = 0.001f;
+    private float movementThreshold = 0.01f;
 
     private Vector3 printHeadPos;
 
