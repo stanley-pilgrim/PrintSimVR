@@ -12,6 +12,7 @@ public class PrintHeadController : MonoBehaviour
     private Vector3 startPosition;
     private Quaternion startRotation;
     private Vector3 startHandPosition;
+    private Transform grabTransform;
     
     [SerializeField] private float minX, maxX, minZ, maxZ; // constraints
     [SerializeField] private float movementDamping = 0.8f; // resistance
@@ -39,6 +40,7 @@ public class PrintHeadController : MonoBehaviour
         startRotation = transform.rotation;
         startPosition = printerTransform.InverseTransformPoint(transform.position);
         startHandPosition = args.interactorObject.GetAttachTransform(grabInteractable).position;
+        grabTransform = args.interactorObject.GetAttachTransform(grabInteractable);
     }
 
     void Update()
@@ -50,11 +52,11 @@ public class PrintHeadController : MonoBehaviour
         if (interactor != null)
         {
             // get hand movement delta
-            Vector3 handPosition = interactor.GetAttachTransform(grabInteractable).position;
+            Vector3 handPosition = grabTransform.position;
             Vector3 worldDelta = handPosition - startHandPosition;
 
             // convert global movement to printer space
-            Vector3 localDelta = printerTransform.InverseTransformDirection(worldDelta);
+            Vector3 localDelta = printerTransform.InverseTransformVector(worldDelta);
 
             // block y movement and adding resistance
             localDelta.y = 0f;

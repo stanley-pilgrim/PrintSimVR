@@ -9,6 +9,9 @@ public class KinematicsManager : MonoBehaviour
     [SerializeField]
     private BowdenTubeController bowdenTube;
 
+    [SerializeField] 
+    private float movementThreshold = 0.001f;
+
     private Vector3 printHeadPos;
 
     void Start()
@@ -19,7 +22,7 @@ public class KinematicsManager : MonoBehaviour
     void Update()
     {
         Vector3 printHeadDelta = printHead.position - printHeadPos;
-        if (printHeadDelta.magnitude < 0.001f) return;
+        if (printHeadDelta.magnitude < movementThreshold) return;
 
         // updating cached position
         printHeadPos = printHead.position;
