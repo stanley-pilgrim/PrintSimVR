@@ -348,7 +348,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 64116143}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b6e5ed1780fe25f41a9432fec9a95c1f, type: 3}
+  m_Script: {fileID: 11500000, guid: 368ea186b6725dc40b440156a212b618, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &175029799
@@ -1552,7 +1552,7 @@ GameObject:
   - component: {fileID: 467038186}
   - component: {fileID: 467038185}
   - component: {fileID: 467038184}
-  - component: {fileID: 467038183}
+  - component: {fileID: 467038188}
   m_Layer: 0
   m_Name: PrintHeadCable
   m_TagString: Untagged
@@ -1575,18 +1575,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 816607011}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &467038183
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 467038181}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b6e5ed1780fe25f41a9432fec9a95c1f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &467038184
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1768,6 +1756,19 @@ MonoBehaviour:
       m_Data: []
   m_Knots:
     m_KnotsLink: []
+--- !u!114 &467038188
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 467038181}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecf8d77ec21b3d44ab73b2a4fbcf944a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  xOffset: 0
 --- !u!1 &578288808
 GameObject:
   m_ObjectHideFlags: 0
@@ -1994,9 +1995,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 578288808}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b6e5ed1780fe25f41a9432fec9a95c1f, type: 3}
+  m_Script: {fileID: 11500000, guid: 6783ceee076fffe4c8d09d6033b36d84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  filament: {fileID: 64116149}
+  cable: {fileID: 467038188}
 --- !u!1 &729126184
 GameObject:
   m_ObjectHideFlags: 0
@@ -2333,7 +2336,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 816607011}
-  - component: {fileID: 816607012}
   m_Layer: 0
   m_Name: BowdenAssembly
   m_TagString: Untagged
@@ -2359,21 +2361,6 @@ Transform:
   - {fileID: 64116144}
   m_Father: {fileID: 446975359}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &816607012
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 816607010}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 34bd29443f7949d47a47466eb9bdceb8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bowdenTube: {fileID: 578288814}
-  filament: {fileID: 64116149}
-  cable: {fileID: 467038183}
 --- !u!1 &970832703
 GameObject:
   m_ObjectHideFlags: 0
@@ -2693,7 +2680,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   printHead: {fileID: 729126185}
-  bowdenAssembly: {fileID: 816607012}
+  bowdenTube: {fileID: 578288814}
+  movementThreshold: 0.01
 --- !u!1 &1968852212
 GameObject:
   m_ObjectHideFlags: 0
