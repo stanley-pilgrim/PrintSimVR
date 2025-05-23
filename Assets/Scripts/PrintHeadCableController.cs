@@ -5,11 +5,18 @@ using UnityEngine.Splines;
 
 public class PrintHeadCableController : TubeController
 {
-    public void UpdatePrintHeadCable(Vector3 printHeadKnotPos)
+    [SerializeField] public float xOffset = 0f;
+    public void UpdatePrintHeadCable(BezierKnot printHeadKnot, BezierKnot middleKnot)
     {
-        BezierKnot printHeadKnot = spline[0];
-        printHeadKnot.Position = printHeadKnotPos;
-        spline[0] = printHeadKnot;
+        BezierKnot cablePrintHeadKnot = printHeadKnot;
+        BezierKnot cableMiddleKnot = middleKnot;
+
+        cablePrintHeadKnot.Position.x += xOffset;
+        cableMiddleKnot.Position.x += xOffset;
+
+        spline[0] = cablePrintHeadKnot;
+        spline[1] = cableMiddleKnot;
+
         extrude.Rebuild();
     }
 }

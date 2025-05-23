@@ -5,11 +5,11 @@ using UnityEngine.Splines;
 
 public class FilamentController : TubeController
 {
-    public void UpdateFilament(Vector3 printHeadKnotPos)
+    public void UpdateFilament(BezierKnot printHeadKnot, BezierKnot middleKnot)
     {
-        BezierKnot printHeadKnot = spline[0];
-        printHeadKnot.Position = printHeadKnotPos;
         spline[0] = printHeadKnot;
+        spline[1] = middleKnot;
+
         extrude.Rebuild();
     }
 }
