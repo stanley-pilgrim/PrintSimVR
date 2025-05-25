@@ -17,6 +17,6 @@ public class PrintHeadCableController : TubeController
         spline[0] = cablePrintHeadKnot;
         spline[1] = cableMiddleKnot;
 
-        extrude.Rebuild();
+        //extrude.Rebuild();
     }
 }

@@ -10,6 +10,6 @@ public class FilamentController : TubeController
         spline[0] = printHeadKnot;
         spline[1] = middleKnot;
 
-        extrude.Rebuild();
+        //extrude.Rebuild();
     }
 }
