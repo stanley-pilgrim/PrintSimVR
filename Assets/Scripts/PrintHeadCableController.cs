@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Splines;
 
+[RequireComponent(typeof(SplineContainer))]
 public class PrintHeadCableController : TubeController
 {
     [SerializeField] public float xOffset = 0f;
@@ -14,9 +15,10 @@ public class PrintHeadCableController : TubeController
         cablePrintHeadKnot.Position.x += xOffset;
         cableMiddleKnot.Position.x += xOffset;
 
-        spline[0] = cablePrintHeadKnot;
+        spline[2] = cablePrintHeadKnot;
         spline[1] = cableMiddleKnot;
 
         //extrude.Rebuild();
+        tubeRenderer.RenderTube();
     }
 }

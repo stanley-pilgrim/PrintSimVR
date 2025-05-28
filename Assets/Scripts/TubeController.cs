@@ -6,12 +6,12 @@ using UnityEngine.Splines;
 public abstract class TubeController : MonoBehaviour
 {
     protected Spline spline;
-    protected SplineExtrude extrude;
+    protected TubeRenderer tubeRenderer;
 
     protected void Awake()
     {
         spline = GetComponent<SplineContainer>().Spline;
-        extrude = GetComponent<SplineExtrude>();
+        tubeRenderer = GetComponent<TubeRenderer>();
 
         for (int i = 0; i < spline.Count; i++)
         {

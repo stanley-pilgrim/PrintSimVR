@@ -5,6 +5,8 @@ using UnityEditor.VersionControl;
 using UnityEngine;
 using UnityEngine.Splines;
 
+[RequireComponent(typeof(SplineContainer))]
+
 public class BowdenTubeController : TubeController
 {
     [SerializeField] private FilamentController filament;
@@ -21,29 +23,31 @@ public class BowdenTubeController : TubeController
     {
         UpdateMiddleKnot();
         //extrude.Rebuild();
+        tubeRenderer.RenderTube();
 
-        filament.UpdateFilament(spline[0], spline[1]);
-        cable.UpdatePrintHeadCable(spline[0], spline[1]);
+        filament.UpdateFilament(spline[2], spline[1]);
+        cable.UpdatePrintHeadCable(spline[2], spline[1]);
     }
 
     public void UpdateBowdenTube(Vector3 printHeadDelta)
     {
         // updating the print head knot
-        BezierKnot printHeadKnot = spline[0];
+        BezierKnot printHeadKnot = spline[2];
 
         // print head knot follows the print head
         Vector3 printHeadKnotPos = CalculatePrintHeadKnot(printHeadDelta);
         printHeadKnot.Position = printHeadKnotPos;
-        spline[0] = printHeadKnot;
+        spline[2] = printHeadKnot;
 
         // updating the middle knot
         UpdateMiddleKnot();
 
         //extrude.Rebuild();
+        tubeRenderer.RenderTube();
 
         // updating the filament and the cable
-        filament.UpdateFilament(spline[0], spline[1]);
-        cable.UpdatePrintHeadCable(spline[0], spline[1]);
+        filament.UpdateFilament(spline[2], spline[1]);
+        cable.UpdatePrintHeadCable(spline[2], spline[1]);
     }
 
     private Vector3 CalculatePrintHeadKnot(Vector3 delta)
@@ -52,7 +56,7 @@ public class BowdenTubeController : TubeController
         Vector3 localDelta = transform.InverseTransformVector(delta);
 
         // calculating new position
-        BezierKnot printHeadKnot = spline[0];
+        BezierKnot printHeadKnot = spline[2];
         Vector3 newPosition = printHeadKnot.Position;
         newPosition += localDelta;
 
@@ -73,8 +77,6 @@ public class BowdenTubeController : TubeController
         middleKnot.Position = middleKnotPos;
 
         spline[1] = middleKnot;
-
-        Debug.Log(spline.GetLength());
     }
 
     private Vector3 CalculateMiddleKnotTangent()
@@ -98,8 +100,8 @@ public class BowdenTubeController : TubeController
 
         // calculating position by x and z
         // closer to the printhead by x and to the feeder by z
-        float midX = (1 - xBias) * knot0.x + xBias * knot2.x;
-        float midZ = (1 - zBias) * knot0.z + zBias * knot2.z;
+        float midX = xBias * knot0.x + (1 - xBias) * knot2.x;
+        float midZ = zBias * knot0.z + (1 - zBias) * knot2.z;
 
         // can't get lower than the printhead and higher than the half the length
         float minY = Mathf.Min(lastY, 0);
