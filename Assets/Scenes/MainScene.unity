@@ -1556,6 +1556,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 446975359}
+  - component: {fileID: 446975360}
   m_Layer: 0
   m_Name: Ultimaker2+
   m_TagString: Untagged
@@ -1576,13 +1577,25 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1430347801}
   - {fileID: 729126185}
   - {fileID: 816607011}
   - {fileID: 543450653352675248}
   - {fileID: 348958340}
   m_Father: {fileID: 1183707939}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &446975360
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 446975358}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a16a89d76ee3d7d4b9a7720f371057b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  printHead: {fileID: 729126185}
 --- !u!1 &467038181
 GameObject:
   m_ObjectHideFlags: 0
@@ -3099,6 +3112,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1368649011}
+  - component: {fileID: 1368649012}
   m_Layer: 0
   m_Name: X axis
   m_TagString: Untagged
@@ -3126,53 +3140,18 @@ Transform:
   - {fileID: 1435420875153957863}
   m_Father: {fileID: 348958340}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1430347800
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1430347801}
-  - component: {fileID: 1430347802}
-  m_Layer: 0
-  m_Name: KinematicsManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1430347801
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1430347800}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 446975359}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1430347802
+--- !u!114 &1368649012
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1430347800}
+  m_GameObject: {fileID: 1368649010}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a16a89d76ee3d7d4b9a7720f371057b4, type: 3}
+  m_Script: {fileID: 11500000, guid: d8abac082d600ce468787cf82680cfa0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  printHead: {fileID: 729126185}
-  bowdenTube: {fileID: 578288814}
-  movementThreshold: 0.01
 --- !u!1 &1633138394
 GameObject:
   m_ObjectHideFlags: 0
@@ -3182,8 +3161,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1633138395}
+  - component: {fileID: 1633138396}
   m_Layer: 0
-  m_Name: Z axis
+  m_Name: Y axis
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3209,6 +3189,18 @@ Transform:
   - {fileID: 1660162937}
   m_Father: {fileID: 348958340}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1633138396
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1633138394}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d1f8b2656c5b63428fb5c7a5b32f054, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1660162936
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3287,6 +3279,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: 1172-B2P-A (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 5512820883446118831, guid: bd2e2ad9bb3460746a569f3d3bc77b64,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 5ce5ba163b37ec34abcd3f6466782b20, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4924,6 +4921,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: 1172-B2P-A
       objectReference: {fileID: 0}
+    - target: {fileID: 5512820883446118831, guid: bd2e2ad9bb3460746a569f3d3bc77b64,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 5ce5ba163b37ec34abcd3f6466782b20, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

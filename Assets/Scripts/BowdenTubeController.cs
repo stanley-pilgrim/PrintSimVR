@@ -7,7 +7,7 @@ using UnityEngine.Splines;
 
 [RequireComponent(typeof(SplineContainer))]
 
-public class BowdenTubeController : TubeController
+public class BowdenTubeController : TubeController, IGantryComponent
 {
     [SerializeField] private FilamentController filament;
     [SerializeField] private PrintHeadCableController cable;
@@ -30,7 +30,7 @@ public class BowdenTubeController : TubeController
         cable.UpdatePrintHeadCable(spline[2], spline[1]);
     }
 
-    public void UpdateBowdenTube(Vector3 printHeadDelta)
+    public void FollowPrintHead(Vector3 printHeadDelta)
     {
         // updating the print head knot
         BezierKnot printHeadKnot = spline[2];
@@ -52,13 +52,10 @@ public class BowdenTubeController : TubeController
 
     private Vector3 CalculatePrintHeadKnot(Vector3 delta)
     {
-        // figuring out where the printhead moved in relation to the spline
-        Vector3 localDelta = transform.InverseTransformVector(delta);
-
         // calculating new position
         BezierKnot printHeadKnot = spline[2];
         Vector3 newPosition = printHeadKnot.Position;
-        newPosition += localDelta;
+        newPosition += delta;
 
         return newPosition;
     }
