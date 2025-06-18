@@ -22,7 +22,7 @@ public class KinematicsManager : MonoBehaviour
     void Update()
     {
         Vector3 printHeadDelta = printHead.position - printHeadPos;
-        if (printHeadDelta.magnitude < movementThreshold) return;
+        if (printHeadDelta.magnitude == 0) return;
 
         // updating cached position
         printHeadPos = printHead.position;

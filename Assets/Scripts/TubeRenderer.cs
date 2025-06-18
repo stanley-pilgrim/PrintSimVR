@@ -16,10 +16,7 @@ public class TubeRenderer : MonoBehaviour
     {
         lineRenderer = GetComponent<LineRenderer>();
         spline = GetComponent<SplineContainer>().Spline;
-    }
 
-    private void Start()
-    {
         lineRenderer.positionCount = segments + 1;
         lineRenderer.startWidth = width;
         lineRenderer.endWidth = width;
@@ -34,7 +31,6 @@ public class TubeRenderer : MonoBehaviour
             Vector3 pos = spline.EvaluatePosition(t);
             lineRenderer.SetPosition(i, pos);
         }
-
     }
 
 }

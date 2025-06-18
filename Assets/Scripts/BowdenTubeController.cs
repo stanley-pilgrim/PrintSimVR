@@ -12,17 +12,18 @@ public class BowdenTubeController : TubeController
     [SerializeField] private FilamentController filament;
     [SerializeField] private PrintHeadCableController cable;
 
-    private float bowdenLength = 0.7f;
+    private float bowdenLength = 0.65f;
 
     private float tangentLength = 0.12f;
 
-    private float xBias = 0.25f;
-    private float zBias = 0.8f;
+    private float xBias = 0.1f;
+    private float zBias = 0.5f;
+
+    private Vector3 middleHomePos = new Vector3(-0.06f, 0f, -0.08f);
 
     private void Start()
     {
         UpdateMiddleKnot();
-        //extrude.Rebuild();
         tubeRenderer.RenderTube();
 
         filament.UpdateFilament(spline[2], spline[1]);
@@ -42,7 +43,6 @@ public class BowdenTubeController : TubeController
         // updating the middle knot
         UpdateMiddleKnot();
 
-        //extrude.Rebuild();
         tubeRenderer.RenderTube();
 
         // updating the filament and the cable
@@ -92,16 +92,16 @@ public class BowdenTubeController : TubeController
 
     private Vector3 CalculateMiddleKnot(float lastY)
     {
-        const float epsilon = 0.01f;
+        const float epsilon = 0.001f;
         const int maxIterations = 10;
 
         Vector3 knot0 = spline[0].Position;
         Vector3 knot2 = spline[2].Position;
 
         // calculating position by x and z
-        // closer to the printhead by x and to the feeder by z
-        float midX = xBias * knot0.x + (1 - xBias) * knot2.x;
-        float midZ = zBias * knot0.z + (1 - zBias) * knot2.z;
+        Vector3 printHeadOffset = knot2 - knot0;
+        float midX = middleHomePos.x + printHeadOffset.x * xBias;
+        float midZ = middleHomePos.z + printHeadOffset.z * zBias;
 
         // can't get lower than the printhead and higher than the half the length
         float minY = Mathf.Min(lastY, 0);
