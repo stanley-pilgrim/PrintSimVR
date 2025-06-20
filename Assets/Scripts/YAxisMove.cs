@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class YAxisController : MonoBehaviour, IGantryComponent
+public class YAxisMove : MonoBehaviour, IGantryComponent
 {
     public void FollowPrintHead(Vector3 printHeadDelta)
     {
